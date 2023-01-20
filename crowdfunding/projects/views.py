@@ -52,6 +52,9 @@ class ProjectDetail(APIView):
         )
         if serializer.is_valid():
             serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
 
 class PledgeList(generics.ListCreateAPIView):
     queryset = Pledge.objects.all()
