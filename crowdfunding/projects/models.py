@@ -7,9 +7,9 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Project(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    goal = models.IntegerField()
+    goal = models.DecimalField()
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
@@ -31,7 +31,7 @@ def total(self):
 
 
 class Pledge(models.Model):
-    amount = models.IntegerField()
+    amount = models.DecimalField()
     comment = models.CharField(max_length=200)
     anonymous = models.BooleanField()
     project = models.ForeignKey(

@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     profile_picture = models.URLField(blank=True)
     bio = models.TextField(blank=True, null=True)
     country_of_residence = models.CharField(max_length=200, blank=False)
+    highest_level_of_education = models.CharField(max_length=200, null=False, blank=False)
 
 
     def __str__(self):
