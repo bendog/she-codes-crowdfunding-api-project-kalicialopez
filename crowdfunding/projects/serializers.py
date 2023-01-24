@@ -1,27 +1,25 @@
 from rest_framework.serializers import ModelSerializer
-
+from rest_framework import serializers
 from .models import Project, Pledge
 
 from users.serializers import CustomUserSerializer
 
 
 class PledgeSerializer(ModelSerializer):
+    # supporter = serializers.SerializerMethodField()
     class Meta:
         model = Pledge
         fields = ['id', 'amount', 'comment', 'anonymous', 'project', 'supporter']
-        read_only_fields = ['id', 'supporter']
+        read_only_fields = ['id']
+
+# def get_supporter(self, instance),
 
 class ProjectSerializer(ModelSerializer):
     class Meta:
-        id = ModelSerializer.ReadOnlyField()
-        title = ModelSerializer.CharField(max_length=200)
-        description = ModelSerializer.CharField(max_length=None)
-        goal = ModelSerializer.IntegerField()
-        image = ModelSerializer.URLField()
-        is_open = ModelSerializer.BooleanField()
-        date_created = ModelSerializer.DateTimeField()
-        owner = ModelSerializer.ReadOnlyField(source='owner_id')
-        total = ModelSerializer.ReadOnlyField()
+        model = Project
+        fields = ['id', 'title', 'description', 'goal', 'image', 'is_open', 'date_created', 'owner', 'total', 'liked_by', 'pledges']
+        read_only_fields = ['id', 'owner']
+    
 
         def create(self, validated_data):
             return Project.objects.create(**validated_data)
@@ -34,6 +32,8 @@ class ProjectSerializer(ModelSerializer):
             instance.is_open = validated_data.get('is_open', instance.is_open)
             instance.data_created = validated_data.get('date_created', instance.date_created)
             instance.owner = validated_data.get('owner', instance.owner)
+            instance.total = validated_data.get('total', instance.total)
+            instance.liked_by = validated_data.get('liked_by', instance.liked_by)
             instance.save()
             return instance
 

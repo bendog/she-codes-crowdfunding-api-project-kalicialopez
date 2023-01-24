@@ -7,9 +7,9 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Project(models.Model):
-    title = models.CharField(max_length=100, unique=True)
+    title = models.CharField(max_length=100)
     description = models.TextField()
-    goal = models.DecimalField()
+    goal = models.DecimalField(decimal_places = 2, max_digits = 10)
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
@@ -18,7 +18,8 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         related_name='owner_projects'
         )
-
+    total = models.DecimalField(decimal_places = 2, max_digits = 10, null = True)
+    
     liked_by = models.ManyToManyField(
         User,
         related_name='liked_projects'
@@ -31,7 +32,7 @@ def total(self):
 
 
 class Pledge(models.Model):
-    amount = models.DecimalField()
+    amount = models.DecimalField(decimal_places = 2, max_digits = 10)
     comment = models.CharField(max_length=200)
     anonymous = models.BooleanField()
     project = models.ForeignKey(
