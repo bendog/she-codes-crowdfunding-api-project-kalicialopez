@@ -59,10 +59,20 @@ class ProjectDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
     
+    # https://www.youtube.com/watch?v=b680A5fteEo
+    # def delete(self, request, pk):
+    #     project = self.get_object(pk=pk)
+    #     project.delete()
+    #     return Response (status=status.HTTP_204_NO_CONTENT)
+
+        
+
 
 class PledgeList(generics.ListCreateAPIView):
+
     queryset = Pledge.objects.all()
     serializer_class = PledgeSerializer
 
     def perform_create(self, serializer):
         serializer.save(supporter=self.request.user)
+
