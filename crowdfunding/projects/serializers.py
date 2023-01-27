@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+# from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import Project, Pledge
 
@@ -8,17 +8,26 @@ from users.serializers import CustomUserSerializer
 class PledgeSerializer(serializers.ModelSerializer):
     # For serializer method field
     supporter = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = Pledge
         fields = ['id', 'pledge_amount', 'comment', 'anonymous', 'project', 'supporter']
         read_only_fields = ['id', 'supporter']
 
+    # def get_supporter(self, obj):
+    #     if obj.anonymous:
+    #         return None
+    #     else:
+    #         return obj.supporter
+
+
     def get_supporter(self, obj):
-        if obj.anonymous:
+        if obj.anonymous: #i.e. if anonymous = true
             return None
         else:
-            return obj.supporter
+            return obj.supporter.username
+    def create(self, validated_data):
+        return Pledge.objects.create(**validated_data)
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -31,8 +40,8 @@ class ProjectSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'owner', 'date_created', 'total', 'liked_by', 'pledges']
     
 
-        # def create(self, validated_data):
-        #     return Project.objects.create(**validated_data)
+        def create(self, validated_data):
+            return Project.objects.create(**validated_data)
     
         # def update(self, instance, validated_data):
         #     instance.title = validated_data.get('title', instance.title)
@@ -48,9 +57,8 @@ class ProjectSerializer(serializers.ModelSerializer):
         #     return instance
 
 class ProjectDetailSerializer(ProjectSerializer):
-        pledges = PledgeSerializer(many=True, read_only=True)
-
-        liked_by = CustomUserSerializer(many=True, read_only=True)
+    pledges = PledgeSerializer(many=True, read_only=True)
+    liked_by = CustomUserSerializer(many=True, read_only=True)
 
 
 

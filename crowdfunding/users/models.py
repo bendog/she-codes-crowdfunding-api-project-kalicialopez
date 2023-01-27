@@ -9,6 +9,9 @@ class CustomUser(AbstractUser):
     bio = models.TextField(blank=True, null=True)
     country_of_residence = models.CharField(max_length=200, blank=False)
     highest_level_of_education = models.CharField(max_length=200, null=False, blank=False)
+    # email = models.EmailField()
+    # password = models.CharField(max_length=200, blank = False)
+    # repeat_password = models.CharField(max_length=200, blank=False)
 
 
     def __str__(self):

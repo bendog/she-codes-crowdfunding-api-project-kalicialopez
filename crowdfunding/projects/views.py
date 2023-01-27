@@ -5,7 +5,8 @@ from django.http import Http404
 from rest_framework import status, generics, permissions
 
 from .models import Project, Pledge
-from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer
+from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer 
+from .serializers import CustomUserSerializer
 from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.

@@ -1,11 +1,14 @@
-from rest_framework.serializers import ModelSerializer
+# from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
 from .models import CustomUser
 
-class CustomUserSerializer(ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'date_of_birth', 'profile_picture', 'bio', 'country_of_residence', 'highest_level_of_education', 'username', 'email', 'password']
+        fields = ['id', 'first_name', 'last_name', 'date_of_birth', 'profile_picture', 'bio', 'country_of_residence', 'highest_level_of_education', 'username', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True}}
+        read_only_fields = ['id']
 
     def create(self, validated_data):
         user = CustomUser.objects.create(
@@ -22,4 +25,35 @@ class CustomUserSerializer(ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return CustomUser(**validated_data)
+    
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    repeat_password = serializers.CharField(write_only=True, required=True)
+    old_password = serializers.CharField(write_only=True, required=True)
+
+    # class Meta:
+    #     model = CustomUser
+    #     fields = ['old_password', 'password', 'repeat_password']
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['repeat_password']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+        return attrs
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+        return value
+
+    def update(self, instance, validated_data):
+
+        instance.set_password(validated_data['password'])
+        instance.save()
+
+        return instance
+
 
