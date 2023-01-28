@@ -18,23 +18,20 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         related_name='owner_projects'
         )
-    total = models.DecimalField(decimal_places = 2, max_digits = 10, null = True)
-    
+    # total = models.DecimalField(decimal_places = 2, max_digits = 10)
     liked_by = models.ManyToManyField(
         User,
         related_name='liked_projects'
     )
-
-
-@property
-def total(self):
-    return self.pledges.aggregate(sum=models.Sum('amount'))['sum']
+    @property
+    def total(self):
+        return self.pledges.aggregate(sum=models.Sum('pledge_amount'))['sum']
 
 
 class Pledge(models.Model):
-    amount = models.DecimalField(decimal_places = 2, max_digits = 10)
+    pledge_amount = models.DecimalField(decimal_places = 2, max_digits = 10)
     comment = models.CharField(max_length=200)
-    anonymous = models.BooleanField()
+    anonymous = models.BooleanField(default=False)
     project = models.ForeignKey(
         Project, 
         on_delete=models.CASCADE, 
@@ -43,3 +40,4 @@ class Pledge(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='supporter_pledges')
+    
