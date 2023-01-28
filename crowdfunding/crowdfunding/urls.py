@@ -13,6 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.http import JsonResponse
+
+
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
@@ -24,3 +28,10 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path("", include('projects.urls')),
 ]
+
+def custom404(request, exception=None):
+    return JsonResponse({
+        'status_code': 404,
+        'error': 'I think you are lost. Go back.'
+    })
+handler404 = custom404

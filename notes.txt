@@ -43,15 +43,15 @@ class PledgeSerializer(serializers.ModelSerializer):
         # def update(self, instance, validated_data):
     #         instance.first_name = validated_data.get('first_name', instance.first_name),
     #         instance.last_name = validated_data.get('last_name', instance.last_name),
-    #         date_of_birth = validated_data.get('date_of_birth),
-    #         profile_picture = validated_data.get('profile_picture'),
-    #         bio = validated_data['bio'],
-    #         country_of_residence = validated_data['country_of_residence'],
-    #         highest_level_of_education = validated_data['highest_level_of_education'],
-    #         username = validated_data['username'],
-    #         email = validated_data['email'], 
+    #         instance.date_of_birth = validated_data.get('date_of_birth, instance.date_of_birth),
+    #         instance.profile_picture = validated_data.get('profile_picture', instance.profile_picture),
+    #         instance.bio = validated_data.get('bio', instance.bio),
+    #         instance.country_of_residence = validated_data('country_of_residence', instance.country_of_residence),
+    #         instance.highest_level_of_education = validated_data.get('highest_level_of_education', instance.highest_level_of_education),
+    #         instance.username = validated_data.get('username', instance),
+    #         instance.email = validated_data('email'], 
 
-Ben's 
+Ben's code (must be under a def update).
 if password := validated_data.get('password')
         instance.set_password = password
 

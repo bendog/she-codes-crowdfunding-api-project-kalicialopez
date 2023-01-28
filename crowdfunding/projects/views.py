@@ -61,12 +61,10 @@ class ProjectDetail(APIView):
         return Response(serializer.errors)
     
     # https://www.youtube.com/watch?v=b680A5fteEo
-    # def delete(self, request, pk):
-    #     project = self.get_object(pk=pk)
-    #     project.delete()
-    #     return Response (status=status.HTTP_204_NO_CONTENT)
-
-        
+    def delete(self, request, pk):
+        project = self.get_object(pk=pk)
+        project.delete()
+        return Response (status=status.HTTP_204_NO_CONTENT)
 
 
 class PledgeList(generics.ListCreateAPIView):

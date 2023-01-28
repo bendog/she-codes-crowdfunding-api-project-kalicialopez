@@ -24,7 +24,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
-        return CustomUser(**validated_data)
+        return user
     
 
 class ChangePasswordSerializer(serializers.Serializer):
