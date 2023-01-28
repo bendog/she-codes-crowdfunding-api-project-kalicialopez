@@ -84,3 +84,7 @@ class PledgeList(generics.ListCreateAPIView):
     #     serializer = self.get_serializer(pledges, many = True)
     #     return Response(serializer.data)
 
+class PledgeDetail(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = Pledge.objects.all()
+    serializer_class = PledgeSerializer
