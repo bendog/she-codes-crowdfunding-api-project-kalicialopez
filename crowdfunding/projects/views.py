@@ -9,6 +9,8 @@ from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSeria
 from .serializers import CustomUserSerializer
 from .permissions import IsOwnerOrReadOnly
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 # Create your views here.
 
 class ProjectList(APIView):
@@ -71,7 +73,16 @@ class PledgeList(generics.ListCreateAPIView):
 
     queryset = Pledge.objects.all()
     serializer_class = PledgeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ("supporter",)
 
     def perform_create(self, serializer):
         serializer.save(supporter=self.request.user)
+
+    # def get(self, request):
+    #     pledges = self.filter_queryset(self.get_queryset)
+    #     serializer = self.get_serializer(pledges, many = True)
+    #     return Response(serializer.data)
+
+
 
