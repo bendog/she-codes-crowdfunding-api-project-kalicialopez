@@ -27,15 +27,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return CustomUser(**validated_data)
     
 
-
 class ChangePasswordSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     repeat_password = serializers.CharField(write_only=True, required=True)
     old_password = serializers.CharField(write_only=True, required=True)
-
-    # class Meta:
-    #     model = CustomUser
-    #     fields = ['old_password', 'password', 'repeat_password']
 
     def validate(self, attrs):
         if attrs['password'] != attrs['repeat_password']:

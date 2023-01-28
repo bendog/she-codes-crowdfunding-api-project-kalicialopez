@@ -20,3 +20,4 @@ class CustomUser(AbstractUser):
 
 
 # Create your models here.
+

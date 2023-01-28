@@ -38,3 +38,22 @@ class PledgeSerializer(serializers.ModelSerializer):
     #         return obj.supporter
 
 
+
+
+        # def update(self, instance, validated_data):
+    #         instance.first_name = validated_data.get('first_name', instance.first_name),
+    #         instance.last_name = validated_data.get('last_name', instance.last_name),
+    #         date_of_birth = validated_data.get('date_of_birth),
+    #         profile_picture = validated_data.get('profile_picture'),
+    #         bio = validated_data['bio'],
+    #         country_of_residence = validated_data['country_of_residence'],
+    #         highest_level_of_education = validated_data['highest_level_of_education'],
+    #         username = validated_data['username'],
+    #         email = validated_data['email'], 
+
+Ben's 
+if password := validated_data.get('password')
+        instance.set_password = password
+
+instance.save()
+return instance
