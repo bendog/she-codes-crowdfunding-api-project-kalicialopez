@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
-from rest_framework import status, generics, permissions
+from rest_framework import status, generics, permissions, filters
 
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer 
@@ -17,8 +17,10 @@ class ProjectList(generics.ListCreateAPIView):
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ["is_open"]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ["is_open", "owner", "date_created"]
+    search_fields = ["title", "description"]
+    # can't have the same search fields and filter fields.
 
     def perform_create(self, serializer):
         serializer.save(supporter=self.request.user)
