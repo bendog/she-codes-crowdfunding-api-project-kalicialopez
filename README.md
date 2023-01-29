@@ -1,6 +1,6 @@
 # {{ EducAid }}
 
-{{ EducAid is a non-for-profit online crowdfunding platform that aims to make highly rated, online educational courses/learning more accessible to those who are trying to better themselves, yet are limited by their financial situation. If it's a career change you're seeking Regardless of an individuals' highest level of education, current occupation/industry, EducAid aspires to assist 
+{{ EducAid is a non-for-profit online crowdfunding platform that aims to make highly rated, online educational courses/learning more accessible to those who are trying to better themselves, yet are limited by their financial situation. If it's a career change you're seeking Regardless of an individuals' highest level of education, current occupation/industry, EducAid can assist. 
 
 
 Potential donors: Private enterprise, philanthropists and the general public, and even the participating institutions themselves could donate to get the ball rolling.
@@ -90,11 +90,11 @@ Potential donors: Private enterprise, philanthropists and the general public, an
 
 {{ Filtering through existing project list based on a number of parameters }}
 
-- [ ] {Title Feature 2}
+- [X] {Search Function}
 
-{{ description of feature 2 }}
+{{ Search Function currently embedded into Filter }}
 
-- [ ] {Title Feature 3}
+- [ ] {Title Feature 3} 
 
 {{ description of feature 3 }}
 
@@ -105,11 +105,15 @@ Potential donors: Private enterprise, philanthropists and the general public, an
 
 ## Part A Submission
 
-- [ ] A link to the deployed project.
-- [x] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
-- [x] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
-- [x] A screenshot of Insomnia, demonstrating a token being returned.
-- [ ] Your refined API specification and Database Schema.
+- [X] A link to the deployed project. https://little-silence-1263.fly.dev/
+- [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+- [X] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+- [X] A screenshot of Insomnia, demonstrating a token being returned.
+- [X] Your refined API specification and Database Schema. 
+  
+      *API Spec: https://docs.google.com/document/d/15uhUWko3P4Z2_bwiIbDz3tKzQwObk-tJgQqC9SFlBtA/edit?usp=sharing
+
+      *Database Schema and MVP in 'Ben'.
 
 ### Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data).
 
@@ -118,19 +122,19 @@ Potential donors: Private enterprise, philanthropists and the general public, an
 ```shell
 curl --request POST \
   --url http://localhost:8000/users/ \
-  --header 'Authorization: Bearer 7a56f8811047d79b47498ed97445a4a7ac7fcbc3' \
+  --header 'Authorization: Token 7a56f8811047d79b47498ed97445a4a7ac7fcbc3' \
   --header 'Content-Type: application/json' \
   --data '{
-	"first_name": "Harry",
-	"last_name": "George",
+	"first_name": "Harriette",
+	"last_name": "Wells",
 	"date_of_birth": "1998-08-09",
 	"profile_picture": "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcSl2g-ek1913YE-0UKoWmzr1y-nXzJ59fBAWDH7klvHtc1saFzy8ynISmHCzc-S3n5ELMCPUf8xlomN2-w",
-	"bio": "Hi, I'\''m Harry :)",
+	"bio": "Hi, I'\''m Harriete :)",
 	"country_of_residence": "Switzerland",
 	"highest_level_of_education": "Technical entry",
-	"username": "Harry",
-	"email": "HarryGeorge@gmail.com",
-	"password": "harrygeorge",
+	"username": "Harriette",
+	"email": "harriettewells@gmail.com",
+	"password": "harriettewells",
 	"repeat_password": "harrygeorge"
 }'
 ```
