@@ -1,7 +1,7 @@
 # from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Project, Pledge
-
+from .models import Project, Pledge 
+from users.models import CustomUser
 from users.serializers import CustomUserSerializer
 
 
@@ -43,4 +43,15 @@ class ProjectDetailSerializer(ProjectSerializer):
     liked_by = CustomUserSerializer(many=True, read_only=True)
 
 
-
+class GlobalSearchSerializer(serializers.ModelSerializer):   
+    class Meta:      
+        model = CustomUser   
+        
+        def to_native(self, obj):      
+            if isinstance(obj, Project):          
+                serializer = ProjectSerializer(obj)      
+            elif isinstance(obj, CustomUser):         
+                serializer = CustomUserSerializer(obj)      
+            else:         
+                raise Exception("Neither a project nor user instance!")      
+            return serializer.data

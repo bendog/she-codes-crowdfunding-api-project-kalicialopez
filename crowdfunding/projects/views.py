@@ -4,8 +4,11 @@ from rest_framework.response import Response
 from django.http import Http404
 from rest_framework import status, generics, permissions, filters
 
-from .models import Project, Pledge
-from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer 
+from django.db.models import Q
+
+from .models import Project, Pledge, get_user_model
+from users.models import CustomUser
+from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer, GlobalSearchSerializer 
 from .serializers import CustomUserSerializer
 from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
 
@@ -108,3 +111,28 @@ class PledgeDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Pledge.objects.all()
     serializer_class = PledgeSerializer
+
+# My attempt
+# class GlobalSearchList(generics.ListAPIView):   
+#     serializer_class = GlobalSearchSerializer
+    
+#     def get_queryset(self):      
+#         query = self.request.query_params.get('query', None)      
+#         project_queryset = Project.objects.filter(Q(code__icontains=query) | Q(highlighted__icontains=query) | Q(language__icontains=query))      
+#         user_queryset = user.objects.filter(username__icontains=query)      
+#         all_results = list((Project, user))       
+#         all_results.sort(key=lambda x: x.created)      
+#         return all_results
+    
+
+# ORIGINAL CODE from https://www.yeti.co/blog/global-search-in-django-rest-framework
+#     class GlobalSearchList(generics.ListAPIView):   
+#         serializer_class = GlobalSearchSerializer   
+        
+#         def get_queryset(self):      
+#             query = self.request.query_params.get('query', None)      
+#             snippets = Snippet.objects.filter(Q(code__icontains=query) | Q(highlighted__icontains=query) | Q(language__icontains=query))     
+#             users = User.objects.filter(username__icontains=query)      
+#             all_results = list(chain(snippets, users))       
+#             all_results.sort(key=lambda x: x.created)      
+#             return all_results
