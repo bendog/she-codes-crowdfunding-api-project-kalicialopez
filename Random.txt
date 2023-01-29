@@ -1,3 +1,25 @@
+TO Do:
+CHECK ALL PERMISSIONS 
+-currently users can delete others pledges!
+
+User detail view and pledge detail view? (need to configure pledge details in urls?)
+
+-
+1. Update project user model to include project specific fields 
+2. need to add a def put for customUser serializer because there's no edit/update account functionality. Do I need url?
+3. Pledge detail serializer? 
+4. Make a view for liked_by. If want it to be numerical, modify the pledge model.
+
+Extra features
+- use django filer for drop down search / filters..
+- grand total for whole project.
+-
+
+
+
+
+
+
 Ways to omit specific fields in a serializer (specifically Pledge Serializer.ModelSerializer below)
 
 # To Representation method
@@ -29,7 +51,7 @@ class PledgeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Pledge.objects.create(**validated_data)
 
-        Ben's version (bug created)
+        Ben's refined version (bug created)? WHYYYY???
 
             # def get_supporter(self, obj):
     #     if obj.anonymous:
@@ -37,9 +59,7 @@ class PledgeSerializer(serializers.ModelSerializer):
     #     else:
     #         return obj.supporter
 
-
-
-
+Stuff I removed from CustomUser Serializer, not needed as I turned it into a ModelSerializer.
         # def update(self, instance, validated_data):
     #         instance.first_name = validated_data.get('first_name', instance.first_name),
     #         instance.last_name = validated_data.get('last_name', instance.last_name),
@@ -51,6 +71,8 @@ class PledgeSerializer(serializers.ModelSerializer):
     #         instance.username = validated_data.get('username', instance),
     #         instance.email = validated_data('email'], 
 
+
+**CustomUser post method, if statement to avoid having issues with set_password. 
 Ben's code (must be under a def update).
 if password := validated_data.get('password')
         instance.set_password = password

@@ -7,7 +7,7 @@ from rest_framework import status, generics, permissions
 from .models import Project, Pledge
 from .serializers import ProjectSerializer, PledgeSerializer, ProjectDetailSerializer 
 from .serializers import CustomUserSerializer
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -85,6 +85,10 @@ class PledgeList(generics.ListCreateAPIView):
     #     return Response(serializer.data)
 
 class PledgeDetail(generics.RetrieveUpdateDestroyAPIView):
+    
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly, IsSupporterOrReadOnly
+    ]
 
     queryset = Pledge.objects.all()
     serializer_class = PledgeSerializer

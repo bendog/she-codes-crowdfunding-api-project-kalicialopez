@@ -53,18 +53,18 @@
 
 - Project
   - [ ] Limit who can create
-  - [ ] Limit who can retrieve
-  - [ ] Limit who can update
-  - [ ] Limit who can delete
+  - [ ] Limit who can retrieve *No authentication required to view active projects*
+  - [X] Limit who can update
+  - [X] Limit who can delete
 - Pledge
   - [ ] Limit who can create
-  - [ ] Limit who can retrieve
-  - [ ] Limit who can update
-  - [ ] Limit who can delete
+  - [ ] Limit who can retrieve *No authentication required to view other users pledges*
+  - [x] Limit who can update
+  - [x] Limit who can delete
 - User
-  - [ ] Limit who can retrieve
+  - [ ] Limit who can retrieve *Unsure about having viewable profiles?
   - [X] Limit who can update
-  - [ ] Limit who can delete
+  - [ ] Limit who can delete 
 
 ### Implement relevant status codes
 
@@ -78,7 +78,7 @@
 
 ### Use token authentication
 
-- [X] impliment /api-token-auth/
+- [X] implement /api-token-auth/
 
 ## Additional features
 
@@ -96,7 +96,7 @@
 
 ### External libraries used
 
-- [ ] django-filter
+- [x] django-filter
 
 
 ## Part A Submission

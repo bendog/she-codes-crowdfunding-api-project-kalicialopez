@@ -14,6 +14,7 @@ class PledgeSerializer(serializers.ModelSerializer):
         fields = ['id', 'pledge_amount', 'comment', 'anonymous', 'project', 'supporter']
         read_only_fields = ['id', 'supporter']
 
+    # This version game me an error. Requires the create function.
     # def get_supporter(self, obj):
     #     if obj.anonymous:
     #         return None
