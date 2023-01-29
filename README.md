@@ -66,8 +66,8 @@ Potential donors: Private enterprise, philanthropists and the general public, an
   - [x] Limit who can update
   - [x] Limit who can delete
 - User
-  - [ ] Limit who can retrieve *Users cannot view other users User profile details, list view only hide personal details in list view?*
-  - [X] Limit who can update
+  - [ ] Limit who can retrieve *Users cannot view other users User profile details*.
+  - [X] Limit who can update *There is an issue here, users cannot currently edit their own information*
   - [x] Limit who can delete 
 
 ### Implement relevant status codes
@@ -90,11 +90,11 @@ Potential donors: Private enterprise, philanthropists and the general public, an
 
 {{ Filtering through existing project list based on a number of parameters }}
 
-- [ ] {Title Feature 2}
+- [X] {Search Function}
 
-{{ description of feature 2 }}
+{{ There is a search function nested within the filter feature in the Project List }}
 
-- [ ] {Title Feature 3}
+- [ ] {}
 
 {{ description of feature 3 }}
 
