@@ -55,6 +55,8 @@ class CustomUserDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+    
+  # edit user detail not working.  
 # Create your views here.
 
 class ChangePasswordView(generics.UpdateAPIView):

@@ -33,6 +33,6 @@ urlpatterns = [
 def custom404(request, exception=None):
     return JsonResponse({
         'status_code': 404,
-        'error': 'I think you are lost. Go back.'
+        'error': 'Ooopsy diasy, looks like you made a boo boo! Go back :)'
     })
 handler404 = custom404

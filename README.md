@@ -1,6 +1,10 @@
 # {{ EducAid }}
 
-{{ a paragraph detailing the purpose and target audience }}
+{{ EducAid is a non-for-profit online crowdfunding platform that aims to make highly rated, online educational courses/learning more accessible to those who are trying to better themselves, yet are limited by their financial situation. If it's a career change you're seeking Regardless of an individuals' highest level of education, current occupation/industry, EducAid aspires to assist 
+
+
+Potential donors: Private enterprise, philanthropists and the general public, and even the participating institutions themselves could donate to get the ball rolling.
+ }}
 
 ## Features
 
@@ -17,7 +21,7 @@
   - [X] Owner (a user)
   - [X] Description
   - [X] Image
-  - [X] Target Amount to Fundraise
+  - [X] Target Amount to fundraise
   - [X] Open/Close (Accepting new supporters)
   - [X] When was the project created
 - [X] Ability to pledge to a project
@@ -52,24 +56,24 @@
 **Note: Not all of these may be required for your project, if you have not included one of these please justify why.**
 
 - Project
-  - [ ] Limit who can create
-  - [ ] Limit who can retrieve *No authentication required to view active projects*
+  - [x] Limit who can create *Default - must have authentication to create a project*
+  - [ ] Limit who can retrieve *No authentication required to view projects*
   - [X] Limit who can update
   - [X] Limit who can delete
 - Pledge
-  - [ ] Limit who can create
+  - [x] Limit who can create *Default - must have an authentication to create a pledge*
   - [ ] Limit who can retrieve *No authentication required to view other users pledges*
   - [x] Limit who can update
   - [x] Limit who can delete
 - User
-  - [ ] Limit who can retrieve *Unsure about having viewable profiles?
+  - [ ] Limit who can retrieve *Users cannot view other users User profile details, list view only hide personal details in list view?*
   - [X] Limit who can update
-  - [ ] Limit who can delete 
+  - [x] Limit who can delete 
 
 ### Implement relevant status codes
 
-- [ ] Get returns 200
-- [ ] Create returns 201
+- [x] Get returns 200
+- [x] Create returns 201
 - [x] Not found returns 404
 
 ### Handle failed requests gracefully 
@@ -82,9 +86,9 @@
 
 ## Additional features
 
-- [ ] {Title Feature 1}
+- [X] {Filtering }
 
-{{ description of feature 1 }}
+{{ Filtering through existing project list based on a number of parameters }}
 
 - [ ] {Title Feature 2}
 
@@ -102,9 +106,9 @@
 ## Part A Submission
 
 - [ ] A link to the deployed project.
-- [ ] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
-- [ ] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
-- [ ] A screenshot of Insomnia, demonstrating a token being returned.
+- [x] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+- [x] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+- [x] A screenshot of Insomnia, demonstrating a token being returned.
 - [ ] Your refined API specification and Database Schema.
 
 ### Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data).
@@ -113,24 +117,35 @@
 
 ```shell
 curl --request POST \
-  --url http://127.0.0.1:8000/users/ \
+  --url http://localhost:8000/users/ \
+  --header 'Authorization: Bearer 7a56f8811047d79b47498ed97445a4a7ac7fcbc3' \
   --header 'Content-Type: application/json' \
   --data '{
-	"username": "testuser",
-	"email": "not@myemail.com",
-	"password": "not-my-password"
+	"first_name": "Harry",
+	"last_name": "George",
+	"date_of_birth": "1998-08-09",
+	"profile_picture": "http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcSl2g-ek1913YE-0UKoWmzr1y-nXzJ59fBAWDH7klvHtc1saFzy8ynISmHCzc-S3n5ELMCPUf8xlomN2-w",
+	"bio": "Hi, I'\''m Harry :)",
+	"country_of_residence": "Switzerland",
+	"highest_level_of_education": "Technical entry",
+	"username": "Harry",
+	"email": "HarryGeorge@gmail.com",
+	"password": "harrygeorge",
+	"repeat_password": "harrygeorge"
 }'
 ```
+
+
 
 2. Sign in User
 
 ```shell
 curl --request POST \
-  --url http://127.0.0.1:8000/api-token-auth/ \
+  --url http://localhost:8000/api-token-auth/ \
   --header 'Content-Type: application/json' \
   --data '{
-	"username": "testuser",
-	"password": "not-my-password"
+	"username": "admin",
+	"password": "bigboss2"
 }'
 ```
 
@@ -138,15 +153,15 @@ curl --request POST \
 
 ```shell
 curl --request POST \
-  --url http://127.0.0.1:8000/projects/ \
-  --header 'Authorization: Token 5b8c82ec35c8e8cb1fac24f8eb6d480a367f322a' \
+  --url http://localhost:8000/projects/ \
+  --header 'Authorization: Token 7a56f8811047d79b47498ed97445a4a7ac7fcbc3' \
   --header 'Content-Type: application/json' \
   --data '{
-	"title": "Donate a cat",
-	"description": "Please help, we need a cat for she codes plus, our class lacks meows.",
-	"goal": 1,
-	"image": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Dollar_bill_and_small_change.jpg",
+	"title": "Fat panda",
+	"description": "Squish the fat panda!",
+	"goal": 12.5,
+	"image": "https://cff2.earth.com/uploads/2022/01/18083629/Giant-pandas2-960x640.jpg",
 	"is_open": true,
-	"date_created": "2023-01-28T05:53:46.113Z"
+	"date_created": "2023-01-29T04:01:05.630Z"
 }'
 ```

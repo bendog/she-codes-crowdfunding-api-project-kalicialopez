@@ -13,15 +13,27 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
-class ProjectList(APIView):
-    permission_classes = [
-            permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly
-    ]
+class ProjectList(generics.ListCreateAPIView):
 
-    def get(self, request):
-        projects = Project.objects.all()
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["is_open"]
+
+    def perform_create(self, serializer):
+        serializer.save(supporter=self.request.user)
+
+    def post(self, request):
+        serializer = ProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(owner=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def get(self, request):
+#         projects = Project.objects.all()
+#         serializer = ProjectSerializer(projects, many=True)
+#         return Response(serializer.data)
     
     def post(self, request):
         serializer = ProjectSerializer(data=request.data)
@@ -59,8 +71,8 @@ class ProjectDetail(APIView):
         )
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     # https://www.youtube.com/watch?v=b680A5fteEo
     def delete(self, request, pk):
@@ -78,7 +90,9 @@ class PledgeList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(supporter=self.request.user)
+    
 
+    # Not needed for the filter to work
     # def get(self, request):
     #     pledges = self.filter_queryset(self.get_queryset)
     #     serializer = self.get_serializer(pledges, many = True)
