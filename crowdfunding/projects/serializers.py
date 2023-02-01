@@ -43,15 +43,17 @@ class ProjectDetailSerializer(ProjectSerializer):
     liked_by = CustomUserSerializer(many=True, read_only=True)
 
 
-class GlobalSearchSerializer(serializers.ModelSerializer):   
-    class Meta:      
-        model = CustomUser   
-        
-        def to_native(self, obj):      
-            if isinstance(obj, Project):          
-                serializer = ProjectSerializer(obj)      
-            elif isinstance(obj, CustomUser):         
-                serializer = CustomUserSerializer(obj)      
-            else:         
-                raise Exception("Neither a project nor user instance!")      
-            return serializer.data
+class GlobalSearchSerializer(serializers.ModelSerializer):      
+    class Meta:
+    
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'bio', 'country_of_residence', 'highest_level_of_education']
+            
+    def to_internal_value(self, obj):      
+        if isinstance(obj, Project):          
+            serializer = ProjectSerializer(obj)      
+        elif isinstance(obj, CustomUser):         
+            serializer = CustomUserSerializer(obj)      
+        else:         
+            raise Exception("Neither a project nor user instance!")      
+        return serializer.data
