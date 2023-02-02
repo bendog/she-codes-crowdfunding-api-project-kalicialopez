@@ -128,6 +128,7 @@ class GlobalSearchList(generics.ListAPIView):
             | Q(country_of_residence__icontains=query)
             | Q(highest_level_of_education__icontains=query)
         )
-
-        all_results = [{"item": x, "type": str(type(x).__name__)} for x in chain(projects, users)]
-        return all_results
+        # collect and sort results
+        all_results = list(chain(projects, users))
+        all_results.sort(key=lambda x: x.date_created)
+        return [{"item": x, "type": str(type(x).__name__)} for x in all_results]

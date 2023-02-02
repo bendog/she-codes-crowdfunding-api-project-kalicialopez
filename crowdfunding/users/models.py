@@ -14,5 +14,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
+    @property
+    def date_created(self):
+        return self.date_joined
+
 
 # Create your models here.
