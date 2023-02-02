@@ -1,17 +1,15 @@
 from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from users.models import CustomUser
-from .serializers import CustomUserSerializer, ChangePasswordSerializer
+
 from .permissions import IsUserOrReadOnly
+from .serializers import ChangePasswordSerializer, CustomUserSerializer
 
 
 class CustomUserList(APIView):
-
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
@@ -24,15 +22,13 @@ class CustomUserList(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
 
-class CustomUserDetail(APIView):
 
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly, IsUserOrReadOnly
-    ]
-    
+class CustomUserDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUserOrReadOnly]
+
     def get_object(self, pk):
         try:
-            instance =  CustomUser.objects.get(pk=pk)
+            instance = CustomUser.objects.get(pk=pk)
             self.check_object_permissions(self.request, instance)
             return instance
         except CustomUser.DoesNotExist:
@@ -46,18 +42,16 @@ class CustomUserDetail(APIView):
     def put(self, request, pk):
         user = self.get_object(pk)
         data = request.data
-        serializer = CustomUserSerializer(
-            instance=user,
-            data=data,
-            partial=True
-        )
+        serializer = CustomUserSerializer(instance=user, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
-    
-  # edit user detail not working.  
+
+
+# edit user detail not working.
 # Create your views here.
+
 
 class ChangePasswordView(generics.UpdateAPIView):
     queryset = CustomUser.objects.all()

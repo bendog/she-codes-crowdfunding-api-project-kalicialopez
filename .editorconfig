@@ -9,15 +9,15 @@ trim_trailing_whitespace = true
 
 [*.py]
 indent_size = 4
-tab_width = 4
 
 [*.md]
 trim_trailing_whitespace = false
 
-[{*.bash,*.sh,*.zsh}]
+[*.{bash,sh,zsh}]
 indent_size = 2
-tab_width = 2
 
-[{*.json,*.js}]
+[*.{json,js}]
 indent_size = 2
-tab_width = 2
+
+[*.{toml,yaml,yml}]
+indent_size = 2

@@ -1,0 +1,52 @@
+[tool.isort]
+profile = "black"
+line_length = 99
+py_version=311
+known_third_party = ["django", "rest_framework"]
+
+[tool.black]
+line-length = 99
+target-version = ['py311']
+force-exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+    | migrations
+)
+'''
+
+[tool.poetry]
+name = "she-codes-crowdfunding-api-project-kalicialopez"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "she_codes_crowdfunding_api_project_kalicialopez"}]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+Django = "~4.1.5"
+djangorestframework = "~3.14.0"
+django-filter = "~22.1"
+gunicorn = "~20.1.0"
+whitenoise = "~6.3.0"
+django-cors-headers = "~3.13.0"
+
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.12.0"
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
