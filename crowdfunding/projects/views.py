@@ -129,5 +129,5 @@ class GlobalSearchList(generics.ListAPIView):
             | Q(highest_level_of_education__icontains=query)
         )
 
-        all_results = list(chain(projects, users))
+        all_results = [{"item": x, "type": str(type(x).__name__)} for x in chain(projects, users)]
         return all_results
